@@ -6,7 +6,7 @@ import { DateRangePicker } from 'react-date-range'
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
-function Header() {
+function Header(props) {
 
     const router = useRouter()
 
@@ -45,6 +45,7 @@ function Header() {
                 numOfGuests: numOfGuests
             }
         })
+        
     }
 
    
@@ -66,7 +67,7 @@ function Header() {
                 <input 
                 className='flex-grow pl-5 bg-transparent outline-none text-gray-600 placeholder-gray-400' 
                 type='text' 
-                placeholder='start your search'
+                placeholder={props.placeholder || 'start your search'}
                 onChange={(event) => setSearchInput(event.target.value)}
                 value={searchInput}
                 />
