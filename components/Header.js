@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { SearchIcon, MenuIcon, UserCircleIcon, UserIcon, GlobeAltIcon } from '@heroicons/react/solid'
+import { SearchIcon, MenuIcon, UserCircleIcon, UsersIcon, GlobeAltIcon } from '@heroicons/react/solid'
 import { DateRangePicker } from 'react-date-range'
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -10,10 +10,7 @@ function Header() {
     const [searchInput, setSearchInput] = useState('')
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
-
-    const inputChangeHandler = event => {
-        setSearchInput(event.target.value)
-    }
+    const [numOfGuests, setNumOfGuests] = useState(1)
 
     const handleSelect = ranges => {
         setStartDate(ranges.selection.startDate)
@@ -25,6 +22,14 @@ function Header() {
         startDate: startDate,
         endDate: endDate,
         key: 'selection',
+    }
+
+    const guestsInputChangeHandler = event => {
+        setNumOfGuests(event.target.value)
+    }
+
+    const resetInput = () => {
+        setSearchInput('')
     }
 
    
@@ -47,7 +52,7 @@ function Header() {
                 className='flex-grow pl-5 bg-transparent outline-none text-gray-600 placeholder-gray-400' 
                 type='text' 
                 placeholder='start your search'
-                onChange={inputChangeHandler}
+                onChange={(event) => setSearchInput(event.target.value)}
                 value={searchInput}
                 />
                 <SearchIcon 
@@ -72,6 +77,23 @@ function Header() {
                         rangeColors={['#FD5B61']}
                         onChange={handleSelect}
                     />
+                    <div className='flex items-center border-b mb-4'>
+                        <h2 className='text-2xl flex-grow font-semibold'>Number of Guests</h2>
+                        <UsersIcon 
+                            className='h-5'
+                        />
+                        <input 
+                            type='number'
+                            min={1}
+                            className='w-12 pl-2 text-lg outline-none text-red-400' 
+                            onChange={guestsInputChangeHandler}
+                            value={numOfGuests}
+                        />
+                    </div>
+                    <div className='flex'>
+                        <button onClick={resetInput} className='flex-grow text-gray-500'>Cancel</button>
+                        <button className='flex-grow text-red-400'>Search</button>
+                    </div>
                 </div>
                 )}
 
