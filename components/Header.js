@@ -1,8 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { SearchIcon, MenuIcon, UserCircleIcon, UserIcon, GlobeAltIcon } from '@heroicons/react/solid'
+import { DateRangePicker } from 'react-date-range'
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 function Header() {
+
+    const [searchInput, setSearchInput] = useState('')
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(new Date())
+
+    const inputChangeHandler = event => {
+        setSearchInput(event.target.value)
+    }
+
+    const handleSelect = ranges => {
+        setStartDate(ranges.selection.startDate)
+        setEndDate(ranges.selection.endDate)
+    }
+
+
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection',
+    }
+
+   
+  
+
     return (
         <header className='sticky top-0 z-50 grid grid-cols-3 bg-white shadow-md p-5 md:px-10'>
            
@@ -19,7 +46,10 @@ function Header() {
                 <input 
                 className='flex-grow pl-5 bg-transparent outline-none text-gray-600 placeholder-gray-400' 
                 type='text' 
-                placeholder='start your search'/>
+                placeholder='start your search'
+                onChange={inputChangeHandler}
+                value={searchInput}
+                />
                 <SearchIcon 
                 className='hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2'/>
             </div>
@@ -33,6 +63,18 @@ function Header() {
                     <UserCircleIcon className='h-6'/>
                 </div>
             </div>
+
+            {searchInput && (
+                <div className='flex flex-col col-span-3 mx-auto'>
+                    <DateRangePicker 
+                        ranges={[selectionRange]}
+                        minDate={new Date()}
+                        rangeColors={['#FD5B61']}
+                        onChange={handleSelect}
+                    />
+                </div>
+                )}
+
         </header>
     )
 }
