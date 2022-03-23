@@ -1,3 +1,3 @@
 Work In Progress
 
-Deployed Page: [https://airbnbclone-blush.vercel.app/]
+Deployed Page: https://airbnbclone-blush.vercel.app/
