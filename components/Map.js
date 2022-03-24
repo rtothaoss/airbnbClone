@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import ReactMapGL from 'react-map-gl'
+import Map from 'react-map-gl'
 
-function Map() {
+function MapComponent() {
 
-    const [viewport, setViewport] = useState({
+    const [viewState, setViewState] = useState({
         width: '100%',
         height: '100%',
         longitude: -0.109889,
@@ -12,14 +12,16 @@ function Map() {
     })
 
   return (
-    <ReactMapGL
+    <Map
         mapStyle='mapbox://styles/rtothaoss/cl1555xs3000715qryrg2szvu'
         mapboxAccessToken={process.env.mapbox_key}
-        {...viewport}
+        {...viewState}
+        onMove={evt => setViewState(evt.viewState)}
+        
     >
 
-    </ReactMapGL>
+    </Map>
   )
 }
 
-export default Map
+export default MapComponent
